@@ -3,9 +3,7 @@
 
 ### I have technical experience and interest in -
 * Machine Learning
-* Deep Learning
-* Computer vision 
-* Natural Language Processing
+* Software development 
 
 
 <h3 align="left">Languages and Tools:</h3>
