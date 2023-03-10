@@ -31,7 +31,7 @@
 
 <hr>
 
-[linkedin]: www.linkedin.com/in/aasirmeeran
+[linkedin]: www.linkedin.com/in/mohamed-aasir-meeran-74770a1b8
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=aasir22&label=Profile%20views&color=0e75b6&style=flat" alt="aasir22" /> </p>
 
