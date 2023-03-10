@@ -24,14 +24,14 @@
 
 #### You can also find me on- 
 
-[<img align="left" alt="aasir | LinkedIn" width="30px" src="https://img.icons8.com/color/48/000000/linkedin.png" />][linkedin]
+[<img align="left" alt="aasir | LinkedIn" width="30px" src="https://img.icons8.com/color/48/000000/linkedin.png" />][linkedin]: www.linkedin.com/in/mohamed-aasir-meeran-74770a1b8
 
 
 <br>
 
 <hr>
 
-[linkedin]: www.linkedin.com/in/mohamed-aasir-meeran-74770a1b8
+<!-- [linkedin]: www.linkedin.com/in/mohamed-aasir-meeran-74770a1b8 -->
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=aasir22&label=Profile%20views&color=0e75b6&style=flat" alt="aasir22" /> </p>
 
