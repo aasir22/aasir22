@@ -16,9 +16,9 @@
 </ul>
 <h2 align="left">Hobbies:</h2>
 <ul>
-  <li>Working out at the gym and staying fit</li>
+  <li>Working out at the gym</li>
   <li>Reading books on topics like self-improvement and technology</li>
-  <li>Travelling to new places and experiencing different cultures</li>
+  <li>Travelling to new places</li>
 </ul>
 <h2 align="left">Connect with me:</h2>
 <a href="https://www.linkedin.com/in/mohamed-aasir-meeran-74770a1b8"><img align="left" alt="aasir | LinkedIn" width="30px" src="https://img.icons8.com/color/48/000000/linkedin.png" /></a>
