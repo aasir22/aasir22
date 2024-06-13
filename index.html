@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mohamed Aasir Meeran — Data Engineer</title>
+<meta name="description" content="Data Engineer with 4 years of experience in Azure, Snowflake, GCP, and Spark. Building scalable data pipelines and modern data platforms." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+:root {
+  --bg:        #0d0b09;    /* deep warm black */
+  --bg-alt:    #14110e;    /* card/raised surface */
+  --bg-elev:   #1a1612;    /* elevated surface */
+  --line:      #2a2520;    /* borders */
+  --line-soft: #1f1b17;
+  --fg:        #f2ede5;    /* primary text */
+  --fg-dim:    #a69b8a;    /* secondary text */
+  --fg-mute:   #6d6557;    /* tertiary text */
+  --accent:    #e8b85c;    /* warm amber gold */
+  --accent-dim:#c99a44;
+  --red:       #d97757;    /* secondary accent for emphasis */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Grain overlay for texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* Subtle grid background */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  opacity: 0.5;
+}
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+section {
+  padding: 80px 0;
+  position: relative;
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+.serif {
+  font-family: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: -0.01em;
+}
+.mono {
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; letter-spacing: -0.02em; }
+
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.section-title {
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05;
+  margin-bottom: 48px;
+  max-width: 800px;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 16px 32px;
+  background: rgba(13, 11, 9, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+nav.scrolled { border-bottom-color: var(--line); }
+
+nav .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav .brand {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--fg);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+nav .brand .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+nav ul {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+nav ul a {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--fg-dim);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: color 0.2s ease;
+  position: relative;
+}
+nav ul a:hover { color: var(--fg); }
+nav ul a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+nav ul a:hover::after { width: 100%; }
+
+@media (max-width: 720px) {
+  nav ul { display: none; }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  min-height: 100vh;
+  padding: 140px 0 80px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hero-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--fg-mute);
+  letter-spacing: 0.12em;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hero-meta .sep { color: var(--line); }
+.hero-meta .avail {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-meta .avail::before {
+  content: "";
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.hero h1 {
+  font-size: clamp(56px, 10vw, 128px);
+  line-height: 0.95;
+  margin-bottom: 32px;
+  letter-spacing: -0.03em;
+}
+.hero h1 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.45;
+  color: var(--fg-dim);
+  max-width: 640px;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+.hero-sub strong { color: var(--fg); font-weight: 500; }
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 64px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  background: transparent;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.btn.primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  font-weight: 500;
+}
+.btn.primary:hover { background: var(--fg); border-color: var(--fg); color: var(--bg); transform: translateY(-1px); }
+.btn .arrow { transition: transform 0.25s ease; }
+.btn:hover .arrow { transform: translate(2px, -2px); }
+
+/* Stats strip */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 32px 16px; } }
+
+.stat .num {
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1;
+  color: var(--fg);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.stat .num .sym { color: var(--accent); font-style: italic; }
+.stat .label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--fg-mute);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+.about-copy p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--fg-dim);
+  margin-bottom: 20px;
+}
+.about-copy p:first-child {
+  font-family: "Instrument Serif", serif;
+  font-size: 28px;
+  line-height: 1.35;
+  color: var(--fg);
+  margin-bottom: 32px;
+  font-style: italic;
+}
+.about-copy p strong { color: var(--fg); font-weight: 500; }
+
+.about-side {
+  position: sticky;
+  top: 100px;
+}
+.side-block {
+  border-top: 1px solid var(--line);
+  padding: 20px 0;
+}
+.side-block:last-child { border-bottom: 1px solid var(--line); }
+.side-block .k {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  margin-bottom: 6px;
+}
+.side-block .v {
+  font-family: "Instrument Serif", serif;
+  font-size: 22px;
+  color: var(--fg);
+}
+.side-block .v .amber { color: var(--accent); }
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+@media (max-width: 720px) { .skills-grid { grid-template-columns: 1fr; } }
+
+.skill-card {
+  border: 1px solid var(--line);
+  padding: 28px;
+  background: var(--bg-alt);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.skill-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.skill-card:hover::before { opacity: 1; }
+
+.skill-card .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.skill-card h3 {
+  font-size: 22px;
+  color: var(--fg);
+}
+.skill-card .idx {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--fg-mute);
+  letter-spacing: 0.1em;
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--fg-dim);
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+.chip:hover { color: var(--accent); border-color: var(--accent); }
+
+/* =========================================================
+   EXPERIENCE / PROJECTS
+   ========================================================= */
+.exp-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 48px;
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.exp-item:last-child { border-bottom: 1px solid var(--line); }
+@media (max-width: 900px) { .exp-item { grid-template-columns: 1fr; gap: 16px; padding: 32px 0; } }
+
+.exp-date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--fg-mute);
+  letter-spacing: 0.08em;
+  padding-top: 6px;
+}
+.exp-date .dur {
+  display: block;
+  color: var(--accent);
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+.exp-body .company {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.exp-body h3 {
+  font-size: 30px;
+  color: var(--fg);
+  line-height: 1.15;
+}
+.exp-body h3 .loc {
+  color: var(--fg-mute);
+  font-size: 0.5em;
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.1em;
+  margin-left: 12px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.exp-body .role {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+
+.exp-project {
+  background: var(--bg-alt);
+  border-left: 2px solid var(--accent);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+.exp-project .tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.exp-project .proj-title {
+  font-family: "Instrument Serif", serif;
+  font-size: 20px;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.exp-project .proj-desc {
+  font-size: 14px;
+  color: var(--fg-dim);
+  line-height: 1.55;
+}
+
+.exp-body ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+.exp-body ul li {
+  padding-left: 24px;
+  position: relative;
+  margin-bottom: 12px;
+  color: var(--fg-dim);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.exp-body ul li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: "JetBrains Mono", monospace;
+}
+.exp-body ul li strong { color: var(--fg); font-weight: 500; }
+.exp-body ul li .metric {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.exp-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+}
+.exp-stack .chip {
+  font-size: 11px;
+  padding: 4px 10px;
+}
+
+/* =========================================================
+   EDUCATION
+   ========================================================= */
+.edu {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 48px;
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+@media (max-width: 720px) {
+  .edu { grid-template-columns: 1fr; gap: 12px; }
+}
+.edu .date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--fg-mute);
+  letter-spacing: 0.08em;
+}
+.edu h3 { font-size: 26px; line-height: 1.2; color: var(--fg); }
+.edu .school { font-size: 14px; color: var(--fg-dim); margin-top: 4px; }
+.edu .cgpa {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+.contact {
+  text-align: left;
+  padding: 120px 0;
+  border-top: 1px solid var(--line);
+}
+.contact h2 {
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 1;
+  margin-bottom: 48px;
+  max-width: 900px;
+}
+.contact h2 .italic { font-style: italic; color: var(--accent); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+@media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } }
+
+.contact-card {
+  border: 1px solid var(--line);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: var(--fg);
+  transition: all 0.3s ease;
+  background: var(--bg-alt);
+}
+.contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.contact-card .lbl {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  margin-bottom: 6px;
+}
+.contact-card .val {
+  font-family: "Instrument Serif", serif;
+  font-size: 22px;
+  color: var(--fg);
+}
+.contact-card .arr {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--accent);
+  transition: transform 0.25s ease;
+}
+.contact-card:hover .arr { transform: translate(4px, -4px); }
+
+/* Footer */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--fg-mute);
+  letter-spacing: 0.06em;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* =========================================================
+   ENTRY ANIMATIONS
+   ========================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.6, 0.2, 1),
+              transform 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* Hero staggered fade */
+.hero > .wrap > * {
+  opacity: 0;
+  animation: fadeUp 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+}
+.hero .hero-meta    { animation-delay: 0.1s; }
+.hero h1            { animation-delay: 0.25s; }
+.hero .hero-sub     { animation-delay: 0.45s; }
+.hero .hero-ctas    { animation-delay: 0.6s; }
+.hero .hero-stats   { animation-delay: 0.75s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Selection */
+::selection { background: var(--accent); color: var(--bg); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+</style>
+</head>
+
+<body>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <a class="brand" href="#top">
+      <span class="dot"></span>
+      <span>aasir</span>
+    </a>
+    <ul>
+      <li><a href="#about">01 · About</a></li>
+      <li><a href="#skills">02 · Skills</a></li>
+      <li><a href="#experience">03 · Experience</a></li>
+      <li><a href="#contact">04 · Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-meta">
+      <span>KADAYANALLUR, TN</span>
+      <span class="sep">/</span>
+      <span>DATA ENGINEER</span>
+      <span class="sep">/</span>
+      <span class="avail">AVAILABLE FOR NEW ROLES</span>
+    </div>
+
+    <h1>
+      Mohamed<br />
+      Aasir <span class="italic">Meeran</span>.
+    </h1>
+
+    <p class="hero-sub">
+      I build the plumbing behind modern data — <strong>scalable pipelines,
+      medallion warehouses, and cloud-native ETL</strong> on Azure, Snowflake,
+      GCP, and Spark. Four years turning messy enterprise data into decisions
+      leaders actually trust.
+    </p>
+
+    <div class="hero-ctas">
+      <a class="btn primary" href="#experience">
+        See the work
+        <span class="arrow">↗</span>
+      </a>
+      <a class="btn" href="mailto:aasirm2212@gmail.com">
+        aasirm2212@gmail.com
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="num">04<span class="sym">+</span></div>
+        <div class="label">Years experience</div>
+      </div>
+      <div class="stat">
+        <div class="num">12<span class="sym">+</span></div>
+        <div class="label">Global plants unified</div>
+      </div>
+      <div class="stat">
+        <div class="num">500<span class="sym">+</span></div>
+        <div class="label">Business users served</div>
+      </div>
+      <div class="stat">
+        <div class="num">8<span class="sym">h</span> → 2<span class="sym">h</span></div>
+        <div class="label">Latency cut</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">01 — About</div>
+    <h2 class="section-title reveal">
+      I'm a data engineer who likes to <em style="font-style: italic; color: var(--accent);">ship things that last.</em>
+    </h2>
+
+    <div class="about-grid">
+      <div class="about-side reveal">
+        <div class="side-block">
+          <div class="k">Currently</div>
+          <div class="v">Data Engineer at <span class="amber">PivotX Advisors</span></div>
+        </div>
+        <div class="side-block">
+          <div class="k">Based in</div>
+          <div class="v">Kadayanallur, Tamil Nadu</div>
+        </div>
+        <div class="side-block">
+          <div class="k">Working remote</div>
+          <div class="v">Globally distributed teams</div>
+        </div>
+        <div class="side-block">
+          <div class="k">Specialty</div>
+          <div class="v">Medallion · Snowflake · Azure</div>
+        </div>
+      </div>
+
+      <div class="about-copy reveal">
+        <p>
+          Four years spent building the data layer for businesses that can't afford
+          to guess — manufacturing operations, medical billing, invoice automation.
+        </p>
+        <p>
+          I started out in mechanical engineering and fell into data through the
+          back door — by solving a stubborn problem with Python. That path shaped
+          how I work: I care more about whether the pipeline delivers business
+          value than whether it uses the trendiest tool.
+        </p>
+        <p>
+          These days I spend most of my time on <strong>Azure Data Factory, Databricks,
+          Snowflake, and GCP</strong>. I've built Bronze/Silver/Gold medallion
+          architectures unifying <strong>8 disparate ERP systems</strong>, cut pipeline
+          latency from <strong>8 hours to under 2</strong>, and turned 15+ hours of
+          weekly manual work into zero-touch automation.
+        </p>
+        <p>
+          My interests lie at the intersection of <strong>data engineering and ML</strong> —
+          I've containerized model execution for predictive maintenance, prepped
+          training data for LLMs using Snowflake's zero-copy cloning and dynamic
+          masking, and tuned Spark jobs until they fit into SLAs instead of fighting
+          them.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow">02 — Technical Skills</div>
+    <h2 class="section-title reveal">The stack I reach for every day.</h2>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="head">
+          <h3>Cloud &amp; Platforms</h3>
+          <div class="idx">/01</div>
+        </div>
+        <div class="chip-list">
+          <span class="chip">Azure Data Factory</span>
+          <span class="chip">Databricks</span>
+          <span class="chip">Synapse</span>
+          <span class="chip">Logic Apps</span>
+          <span class="chip">GCP BigQuery</span>
+          <span class="chip">Cloud Storage</span>
+          <span class="chip">Snowflake</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="head">
+          <h3>Languages</h3>
+          <div class="idx">/02</div>
+        </div>
+        <div class="chip-list">
+          <span class="chip">Python</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Scala</span>
+          <span class="chip">Spark SQL</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="head">
+          <h3>Frameworks &amp; Tools</h3>
+          <div class="idx">/03</div>
+        </div>
+        <div class="chip-list">
+          <span class="chip">Apache Spark</span>
+          <span class="chip">DBT</span>
+          <span class="chip">Apache NiFi</span>
+          <span class="chip">Streamlit</span>
+          <span class="chip">Docker</span>
+          <span class="chip">Git</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="head">
+          <h3>Architecture</h3>
+          <div class="idx">/04</div>
+        </div>
+        <div class="chip-list">
+          <span class="chip">Medallion Architecture</span>
+          <span class="chip">Data Warehousing</span>
+          <span class="chip">Data Modeling</span>
+          <span class="chip">ETL / ELT Pipeline Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow">03 — Experience</div>
+    <h2 class="section-title reveal">Where I've been shipping.</h2>
+
+    <!-- PivotX Advisors -->
+    <article class="exp-item reveal">
+      <div class="exp-date">
+        FEB 2026 — PRESENT
+        <span class="dur">· Current</span>
+      </div>
+      <div class="exp-body">
+        <div class="company">
+          <h3>PivotX Advisors <span class="loc">Remote</span></h3>
+        </div>
+        <div class="role">DATA ENGINEER</div>
+
+        <div class="exp-project">
+          <div class="tag">Key Project</div>
+          <div class="proj-title">GCP Invoice Intelligence Pipeline</div>
+          <div class="proj-desc">
+            End-to-end cloud-native pipeline that automates invoice ingestion,
+            validation, and storage — eliminating manual workflows and enabling
+            real-time business reporting.
+          </div>
+        </div>
+
+        <ul>
+          <li>Designed and built a scalable GCP data pipeline to process and manage high-volume invoice data, improving automation and cutting manual data entry effort by <span class="metric">70%</span> and processing time by <span class="metric">3 hours/day</span>.</li>
+          <li>Developed and maintained a <strong>BigQuery</strong>-based data model to store structured data, metadata, and support downstream integrations.</li>
+          <li>Integrated GCP services for ingestion, storage, and processing — enabling efficient handling of both structured and unstructured data.</li>
+        </ul>
+
+        <div class="exp-stack">
+          <span class="chip">GCP</span>
+          <span class="chip">BigQuery</span>
+          <span class="chip">Cloud Storage</span>
+          <span class="chip">Python</span>
+          <span class="chip">Document AI</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Wittur -->
+    <article class="exp-item reveal">
+      <div class="exp-date">
+        AUG 2024 — FEB 2026
+        <span class="dur">· 1 yr 6 mo</span>
+      </div>
+      <div class="exp-body">
+        <div class="company">
+          <h3>Wittur <span class="loc">Remote</span></h3>
+        </div>
+        <div class="role">DATA ENGINEER</div>
+
+        <div class="exp-project">
+          <div class="tag">Key Project</div>
+          <div class="proj-title">Global Manufacturing Data Integration Platform</div>
+          <div class="proj-desc">
+            Unified platform connecting Infor LN ERP across 12+ global manufacturing
+            plants into a single Snowflake warehouse — built on medallion architecture.
+          </div>
+        </div>
+
+        <ul>
+          <li>Engineered scalable pipelines with <strong>ADF, Logic Apps, Databricks, and Python</strong>, integrating data from <span class="metric">12+ global plants</span> into Snowflake — reducing latency from <span class="metric">8h to &lt;2h</span>.</li>
+          <li>Automated Infor LN and ION ingestion with Python and <strong>Apache NiFi</strong>, eliminating <span class="metric">15+ hrs/week</span> of manual intervention and achieving zero-touch delivery into Azure Data Lake.</li>
+          <li>Orchestrated and containerized ML model execution using <strong>Docker + Azure Containers</strong>, cutting pipeline runtime by <span class="metric">45%</span>.</li>
+          <li>Built a three-layer <strong>Bronze/Silver/Gold medallion architecture</strong> unifying data from <span class="metric">8 disparate ERP systems</span> — consistent KPI reporting for <span class="metric">500+ users</span>.</li>
+          <li>Transformed time-series sensor and production data supporting forecasting models that improved predictive maintenance accuracy by <span class="metric">30%</span>.</li>
+        </ul>
+
+        <div class="exp-stack">
+          <span class="chip">Azure</span>
+          <span class="chip">Snowflake</span>
+          <span class="chip">Databricks</span>
+          <span class="chip">ADF</span>
+          <span class="chip">Apache NiFi</span>
+          <span class="chip">Docker</span>
+          <span class="chip">dbt</span>
+          <span class="chip">Python</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Buddi AI - SDE -->
+    <article class="exp-item reveal">
+      <div class="exp-date">
+        MAY 2022 — JULY 2024
+        <span class="dur">· 2 yr 3 mo</span>
+      </div>
+      <div class="exp-body">
+        <div class="company">
+          <h3>Buddi AI <span class="loc">Chennai, India</span></h3>
+        </div>
+        <div class="role">SOFTWARE DEVELOPMENT ENGINEER</div>
+
+        <div class="exp-project">
+          <div class="tag">Key Project</div>
+          <div class="proj-title">Medical Billing ETL &amp; LLM Data Platform</div>
+          <div class="proj-desc">
+            Enterprise-scale platform processing medical billing records to power
+            AI-driven medical coding — enabling near-real-time claims processing
+            and LLM model training.
+          </div>
+        </div>
+
+        <ul>
+          <li>Designed ETL pipelines using <strong>Apache Spark on Databricks + Snowflake</strong>, orchestrated with ADF — <span class="metric">30% faster</span> processing across <span class="metric">10M+ monthly records</span>.</li>
+          <li>Developed and optimized Snowflake data models for medical billing transformation — analytics data prep from <span class="metric">6 hours to &lt;45 min</span> daily.</li>
+          <li>Leveraged Snowflake, ADLS, SQL, and Spark SQL for complex aggregations — BI dashboards used by <span class="metric">200+ analysts</span>.</li>
+          <li>Implemented advanced Snowflake techniques — <strong>clustering keys, dynamic data masking, zero-copy cloning</strong> — supporting LLM development, <span class="metric">40% faster</span> training data prep.</li>
+          <li>Optimized Spark jobs through partition tuning and broadcast joins — <span class="metric">35%</span> runtime reduction.</li>
+        </ul>
+
+        <div class="exp-stack">
+          <span class="chip">Apache Spark</span>
+          <span class="chip">Databricks</span>
+          <span class="chip">Snowflake</span>
+          <span class="chip">Azure Data Lake</span>
+          <span class="chip">ADF</span>
+          <span class="chip">Delta Lake</span>
+          <span class="chip">Python</span>
+          <span class="chip">SQL</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Buddi AI - Intern -->
+    <article class="exp-item reveal">
+      <div class="exp-date">
+        DEC 2021 — MAY 2022
+        <span class="dur">· 5 mo</span>
+      </div>
+      <div class="exp-body">
+        <div class="company">
+          <h3>Buddi AI <span class="loc">Chennai, India</span></h3>
+        </div>
+        <div class="role">SOFTWARE DEVELOPMENT ENGINEER — INTERN</div>
+
+        <ul>
+          <li>Acquired proficiency in Python, SQL, and data engineering on Azure and Snowflake — completed 3 internal training modules and received <strong>'Fast Learner'</strong> recognition.</li>
+          <li>Assisted in developing REST APIs and basic ETL processes — contributed to a team project that reduced data ingestion errors by <span class="metric">20%</span> within its first month of deployment.</li>
+        </ul>
+
+        <div class="exp-stack">
+          <span class="chip">Python</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Azure</span>
+          <span class="chip">Snowflake</span>
+          <span class="chip">REST APIs</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="eyebrow" style="margin-top: 40px;">04 — Education</div>
+    <div class="edu">
+      <div class="date">2017 — 2021</div>
+      <div>
+        <h3>Bachelor of Mechanical Engineering</h3>
+        <div class="school">Aalim Muhammed Salegh College of Engineering, Chennai</div>
+      </div>
+      <div class="cgpa">CGPA · 7.77</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="eyebrow">05 — Get in touch</div>
+    <h2 class="reveal">
+      Let's build something <span class="italic">good.</span>
+    </h2>
+
+    <div class="contact-grid">
+      <a class="contact-card reveal" href="mailto:aasirm2212@gmail.com">
+        <div>
+          <div class="lbl">Email</div>
+          <div class="val">aasirm2212@gmail.com</div>
+        </div>
+        <span class="arr">↗</span>
+      </a>
+      <a class="contact-card reveal" href="https://www.linkedin.com/in/mohamed-aasir-meeran-74770a1b8" target="_blank" rel="noopener">
+        <div>
+          <div class="lbl">LinkedIn</div>
+          <div class="val">aasirmeeran</div>
+        </div>
+        <span class="arr">↗</span>
+      </a>
+      <a class="contact-card reveal" href="tel:+919514016302">
+        <div>
+          <div class="lbl">Phone</div>
+          <div class="val">+91 9514016302</div>
+        </div>
+        <span class="arr">↗</span>
+      </a>
+      <a class="contact-card reveal" href="#top">
+        <div>
+          <div class="lbl">Location</div>
+          <div class="val">Kadayanallur, TN · Remote</div>
+        </div>
+        <span class="arr">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap: wrap; gap: 16px;">
+    <span>© <span id="year"></span> Mohamed Aasir Meeran — Built with care.</span>
+    <span>Designed &amp; coded by hand ✦ Hosted on GitHub Pages</span>
+  </div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Nav border on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
