@@ -1,5 +1,5 @@
 <h1><img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30"/> Hey there, nice to meet you!</h1>
-<p>My name is Mohamed Aasir Meeran, and I have a technical background in Software Development.</p>
+<p>My name is Mohamed Aasir Meeran, and I have a technical background in Data Engineering and Software Development.</p>
 <h2 align="left">Languages and Tools:</h2>
 <p align="left">
     <a href="https://www.scala-lang.org/" target="_blank"><img src="https://www.vectorlogo.zone/logos/scala-lang/scala-lang-icon.svg" alt="Scala" width="40" height="40"/></a>
